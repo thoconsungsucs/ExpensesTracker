@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Item from "./components/Item";
 
-const Home = ( { navigation } ) => {
+const Home = ({ navigation }) => {
   return (
     <View className=" bg-white h-full pt-6">
       <View className="w-5/6  mx-auto h-1/5 flex items-center justify-center bg-red-400 rounded-3xl ">
@@ -39,7 +39,7 @@ const Home = ( { navigation } ) => {
         <Text className="flex-1 font-semibold text-lg">
           Chi tiêu trong tháng
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Details')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Details")}>
           <Text className="text-base text-pink-500 mt-auto rounded-xl border py-1 px-2">
             Tất cả
           </Text>
@@ -52,7 +52,10 @@ const Home = ( { navigation } ) => {
         <Item />
       </View>
 
-      <TouchableOpacity className="mx-auto mt-3" onPress={() => navigation.navigate('Add')}>
+      <TouchableOpacity
+        className="mx-auto mt-3"
+        onPress={() => navigation.navigate("Add")}
+      >
         <AntDesign name="pluscircle" size={58} color="#EE60AC" />
       </TouchableOpacity>
     </View>
