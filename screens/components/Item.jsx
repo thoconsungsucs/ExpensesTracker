@@ -3,7 +3,10 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 const Item = () => {
   return (
-    <View className="flex-row bg-[#F8F7FC] p-2 rounded-2xl mb-3 items-center">
+    <View
+      className="flex-row bg-[#F8F7FC] p-2 rounded-2xl mb-3 items-center"
+      style={{ elevation: 1 }}
+    >
       <View className="p-2 mr-3">
         <AntDesign name="shoppingcart" size={44} color="#F193C1" />
       </View>

@@ -8,13 +8,19 @@ import Item from "./components/Item";
 const Home = ({ navigation }) => {
   return (
     <View className=" bg-white h-full pt-6">
-      <View className="w-5/6  mx-auto h-1/5 flex items-center justify-center bg-red-400 rounded-3xl ">
+      <View
+        className="w-5/6  mx-auto h-1/5 flex items-center justify-center bg-red-400 rounded-3xl"
+        style={{ elevation: 5 }}
+      >
         <Text className="text-2xl font-light mb-1">Số dư</Text>
         <Text className="text-3xl font-semibold">$0</Text>
       </View>
 
       <View className="w-5/6 mx-auto flex rounded-3xl mt-5 flex-row space-x-3 ">
-        <View className="bg-green-200 flex-1 p-3 flex-row items-center rounded-2xl">
+        <View
+          className="bg-green-200 flex-1 p-3 flex-row items-center rounded-2xl"
+          style={{ elevation: 5 }}
+        >
           <MaterialIcons name="money" size={48} color="black" />
           <View className="pl-3">
             <Text>Thu nhập</Text>
@@ -22,7 +28,10 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-        <View className="bg-yellow-100 flex-1 p-3 flex-row items-center rounded-2xl">
+        <View
+          className="bg-yellow-100 flex-1 p-3 flex-row items-center rounded-2xl"
+          style={{ elevation: 5 }}
+        >
           <MaterialCommunityIcons
             name="emoticon-cry-outline"
             size={48}
@@ -52,12 +61,15 @@ const Home = ({ navigation }) => {
         <Item />
       </View>
 
-      <TouchableOpacity
-        className="mx-auto mt-3"
-        onPress={() => navigation.navigate("Add")}
-      >
-        <AntDesign name="pluscircle" size={58} color="#EE60AC" />
-      </TouchableOpacity>
+      <View className="w-[58px] rounded-full bg-white mx-auto mt-2" style={{ elevation: 12 }}>
+        <TouchableOpacity
+          className=""
+          onPress={() => navigation.navigate("Add")}
+          style={{ elevation: 1 }}
+        >
+          <AntDesign name="pluscircle" size={58} color="#EE60AC" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
