@@ -13,6 +13,7 @@ export const Dropdown = () => {
 
   return (
     <DropDownPicker
+      className='w-44 mx-auto'
       placeholder="Loại"
       open={open}
       value={value}
