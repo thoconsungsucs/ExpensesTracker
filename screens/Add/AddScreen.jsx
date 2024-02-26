@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
-import Tag from "./components/Tag";
-import Caculator from "./components/Caculator";
+import Tag from "./Tag";
+import Caculator from "./Caculator";
 
 const AddScreen = () => {
   return (

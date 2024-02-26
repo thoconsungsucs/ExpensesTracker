@@ -3,7 +3,7 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import Item from "./components/Item";
+import Item from "../Add/Item";
 
 const Home = ({ navigation }) => {
   return (
@@ -61,7 +61,10 @@ const Home = ({ navigation }) => {
         <Item />
       </View>
 
-      <View className="w-[58px] rounded-full bg-white mx-auto mt-2" style={{ elevation: 12 }}>
+      <View
+        className="w-[58px] rounded-full bg-white mx-auto mt-2"
+        style={{ elevation: 12 }}
+      >
         <TouchableOpacity
           className=""
           onPress={() => navigation.navigate("Add")}
