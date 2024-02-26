@@ -2,11 +2,11 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import Tag from "./Tag";
 import Caculator from "./Caculator";
-
 const AddScreen = () => {
   return (
     <View className="px-10 bg-white h-full">
       <Tag />
+
       <TextInput
         placeholder="Chi tiết"
         className="mt-10 text-xl border-b-[1px]"
@@ -24,6 +24,7 @@ const AddScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      
     </View>
   );
 };

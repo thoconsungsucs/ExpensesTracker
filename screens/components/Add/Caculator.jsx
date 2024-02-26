@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { caculatorChange } from "../../redux/actions";
 const Caculator = () => {
   const caculator = [
     "1",
@@ -16,16 +17,22 @@ const Caculator = () => {
     "9",
     "x",
   ];
+
+  const dispatch = useDispatch();
   const [expression, setExpression] = useState("");
   const handleChange = (value) => {
     setExpression((preExpession) => {
-      if (value === "x") return "";
-      else if (
-        value === "." &&
-        (preExpession.length === 0 || preExpession.includes("."))
-      )
-        return preExpession;
-      else return preExpession + value;
+      switch (value) {
+        case "x":
+          dispatch(caculatorChange("FEE", ""));
+          return "";
+        case ".":
+          if (preExpession.length === 0 || preExpession.includes("."))
+            return preExpession;
+        default:
+          dispatch(caculatorChange("FEE", preExpession + value));
+          return preExpession + value;
+      }
     });
   };
 
