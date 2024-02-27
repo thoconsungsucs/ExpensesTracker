@@ -8,7 +8,6 @@ const Input = () => {
     const handleChange = (value) => {
         setText(value);
         dispatch(caculatorChange("DESCRIPTION", value));
-        console.log(value);
     }
   return (
     <TextInput

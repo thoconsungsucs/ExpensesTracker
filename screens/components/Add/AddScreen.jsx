@@ -7,12 +7,7 @@ import { caculatorChange } from "../../redux/actions";
 import Input from "./Input";
 import AddButoon from "./AddButoon";
 const AddScreen = () => {
-  const [text, setText] = useState();
-  const dispatch = useDispatch();
-  const handleChange = (value) => {
-    setText(value);
-    dispatch(caculatorChange("DESCRIPTION", value));
-  }
+  
   return (
     <View className="px-10 bg-white h-full">
       <Tag />

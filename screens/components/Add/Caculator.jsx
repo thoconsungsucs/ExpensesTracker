@@ -47,7 +47,6 @@ const Caculator = () => {
           <Text className="text-3xl font-light">{value}</Text>
         </TouchableOpacity>
       ))}
-      {console.log(expression)}
     </View>
   );
 };

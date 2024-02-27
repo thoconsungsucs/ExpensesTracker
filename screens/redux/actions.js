@@ -1,6 +1,13 @@
-export const caculatorChange = (type,value) => {
-    return {
-        type: `CUR_ITEM_${type}_CHANGE`,
-        payload: value
-    }
-}
+export const caculatorChange = (type, value) => {
+  return {
+    type: `CUR_ITEM_${type}_CHANGE`,
+    payload: value,
+  };
+};
+
+export const addItem = (type,value) => {
+  return {
+    type: `ADD_ITEM_${type}`,
+    payload: value,
+  };
+};

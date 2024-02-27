@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -18,10 +18,12 @@ export const Dropdown = () => {
   ]);
   const dispatch = useDispatch();
 
-  const handleChange = (value) => {
-    setValue(value);
-    dispatch(caculatorChange("CATEGORY", value));
+  const handleChange = (category) => {
+    setValue(category);
   };
+  useEffect(() => {
+    dispatch(caculatorChange("CATEGORY", value));
+  }, [value]);
 
   return (
     <DropDownPicker
