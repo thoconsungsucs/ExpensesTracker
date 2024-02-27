@@ -60,6 +60,14 @@ const rootReducer = (state = initState, action) => {
             category: action.payload,
           },
         };
+        case "CUR_ITEM_DESCRIPTION_CHANGE":
+          return {
+            ...state,
+            curItem: {
+              ...state.curItem,
+              description: action.payload,
+            },
+          };
     default:
       return state;
   }
