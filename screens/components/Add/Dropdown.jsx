@@ -2,12 +2,12 @@ import { View, Text } from "react-native";
 import React, { useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { caculatorChange } from "../../redux/actions";
+import { categorySelector } from "../../redux/selectors";
 
 export const Dropdown = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Mua sắm", value: "shopping" },
     { label: "Ăn uống", value: "food" },
@@ -17,14 +17,12 @@ export const Dropdown = () => {
     { label: "Chi phí phát sinh", value: "others" },
   ]);
   const dispatch = useDispatch();
-
-  const handleChange = (category) => {
-    setValue(category);
+  const value = useSelector(categorySelector)
+  const handleChange = (callback) => {
+    const category = callback();
+    dispatch(caculatorChange("CATEGORY", category));
   };
-  useEffect(() => {
-    dispatch(caculatorChange("CATEGORY", value));
-  }, [value]);
-
+ 
   return (
     <DropDownPicker
       className="w-44 mx-auto"

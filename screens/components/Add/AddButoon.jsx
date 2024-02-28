@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../redux/actions";
 import { curItemSelector } from "../../redux/selectors";
+import { caculatorSelector } from "../../redux/selectors";
 
 const AddButoon = () => {
   const curItem = useSelector(curItemSelector);
