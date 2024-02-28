@@ -4,18 +4,27 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Item from "../Add/Item";
+import { useSelector } from "react-redux";
+import { moneySelector, statusSelector } from "../../redux/selectors";
 
 const Home = ({ navigation }) => {
+  const status = useSelector(statusSelector);
+  const shopping = status.shopping;
+  const food = status.food;
+  const travel = status.travel;
+  const money = useSelector(moneySelector);
   return (
     <View className=" bg-white h-full pt-6">
+      {/* Balance */}
       <View
         className="w-5/6  mx-auto h-1/5 flex items-center justify-center bg-red-400 rounded-3xl"
         style={{ elevation: 5 }}
       >
         <Text className="text-2xl font-light mb-1">Số dư</Text>
-        <Text className="text-3xl font-semibold">$0</Text>
+        <Text className="text-3xl font-semibold">${money.balance}</Text>
       </View>
 
+      {/* Income and expesnse */}
       <View className="w-5/6 mx-auto flex rounded-3xl mt-5 flex-row space-x-3 ">
         <View
           className="bg-green-200 flex-1 p-3 flex-row items-center rounded-2xl"
@@ -24,7 +33,7 @@ const Home = ({ navigation }) => {
           <MaterialIcons name="money" size={48} color="black" />
           <View className="pl-3">
             <Text>Thu nhập</Text>
-            <Text className="font-semibold text-xl">$0</Text>
+            <Text className="font-semibold text-xl">${money.income}</Text>
           </View>
         </View>
 
@@ -39,11 +48,12 @@ const Home = ({ navigation }) => {
           />
           <View className="pl-3">
             <Text>Chi tiêu</Text>
-            <Text className="font-semibold text-xl">$0</Text>
+            <Text className="font-semibold text-xl">${money.expenses}</Text>
           </View>
         </View>
       </View>
 
+      {/* Navigation to Details */}
       <View className="w-5/6 mx-auto pt-6 flex-row">
         <Text className="flex-1 font-semibold text-lg">
           Chi tiêu trong tháng
@@ -55,12 +65,29 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      {/* CurList */}
       <View className="w-5/6 mx-auto mt-4">
-        <Item />
-        <Item />
-        <Item />
+        <Item
+          type={"Mua sắm"}
+          lastItem={shopping.lastItem}
+          fee={shopping.fee}
+          date={shopping.date}
+        />
+        <Item
+          type={"Ăn uống"}
+          lastItem={food.lastItem}
+          fee={food.fee}
+          date={food.date}
+        />
+        <Item
+          type={"Đi lại"}
+          lastItem={travel.lastItem}
+          fee={travel.fee}
+          date={travel.date}
+        />
       </View>
 
+      {/* AddButton */}
       <View
         className="w-[58px] rounded-full bg-white mx-auto mt-2"
         style={{ elevation: 12 }}

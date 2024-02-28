@@ -34,7 +34,6 @@ const initState = {
 };
 
 const rootReducer = (state = initState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case "ADD_ITEM_PLUS":
       return {
@@ -70,7 +69,6 @@ const rootReducer = (state = initState, action) => {
         },
       };
     case `ADD_ITEM_MINUS_${action.type.split("_")[3]}`:
-      console.log(action.payload);
       return {
         ...state,
         money: {
@@ -78,35 +76,54 @@ const rootReducer = (state = initState, action) => {
           balance: state.money.balance - parseFloat(action.payload.fee),
           expenses: state.money.expenses + parseFloat(action.payload.fee),
         },
-        // status: {
-        //   ...state.status,
-        //   [action.type.split("_")[3]]: {
-        //     lastItem: action.payload.description,
-        //     fee: action.payload.fee,
-        //     date: "",
-        //   },
-        // },
-        // list: {
-        //   ...state.list,
-        //   expensesList: [...state.expensesList, action.payload],
-        //   saving: state.list.saving - action.payload.fee,
-        // },
+        status: {
+          ...state.status,
+          [action.type.split("_")[3]]: {
+            lastItem: action.payload.description,
+            fee: action.payload.fee,
+            date: action.payload.date,
+          },
+        },
+        list: {
+          ...state.list,
+          expensesList: [...state.list.expensesList, action.payload],
+          saving: state.list.saving - action.payload.fee,
+        },
         curItem: {
+          id: "",
           fee: "",
           category: "",
           description: "",
         },
       };
-      case "DELETE": {
-        return {
-          ...state,
-          curItem: {
-            fee: "",
-            category: "",
-            description: "",
-          }
-        }
-      }
+    case `ADD_ITEM_PLUS_${action.type.split("_")[3]}`:
+      return {
+        ...state,
+        money: {
+          ...state.money,
+          income: state.money.income + parseFloat(action.payload.fee),
+        },
+        status: {
+          ...state.status,
+          [action.type.split("_")[3]]: {
+            lastItem: action.payload.description,
+            fee: action.payload.fee,
+            date: action.payload.date,
+          },
+        },
+        list: {
+          ...state.list,
+          expensesList: [...state.list.expensesList, action.payload],
+          saving: state.list.saving - action.payload.fee,
+        },
+        curItem: {
+          id: "",
+          fee: "",
+          category: "",
+          description: "",
+        },
+      };
+    
     default:
       return state;
   }

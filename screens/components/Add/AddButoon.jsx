@@ -4,18 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../redux/actions";
 import { curItemSelector } from "../../redux/selectors";
 import { caculatorSelector } from "../../redux/selectors";
+import uuid from "react-native-uuid";
 
 const AddButoon = () => {
   const curItem = useSelector(curItemSelector);
   const dispatch = useDispatch();
   const handleAdd = () => {
-    // const action =
-    //   curItem.category === "Lương"
-    //     ? addItem(`PLUS_${curItem.category}`, curItem)
-    //     : addItem(`MINUS_${curItem.category}`, curItem);
-    // dispatch(action);
-
-    dispatch({type: "DELETE", payload: ""})
+    console.log(curItem);
+    const action =
+      curItem.category === "income"
+        ? addItem(`PLUS_${curItem.category}`, {
+            ...curItem,
+            id: uuid.v4(),
+            date: new Date().toLocaleDateString(),
+          })
+        : addItem(`MINUS_${curItem.category}`, {
+            ...curItem,
+            id: uuid.v4(),
+            date: new Date().toLocaleDateString(),
+          });
+    dispatch(action);
   };
   return (
     <View

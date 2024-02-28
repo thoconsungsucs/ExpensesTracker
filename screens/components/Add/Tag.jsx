@@ -10,7 +10,6 @@ const Tag = () => {
   const today = date.toDateString();
 
   const fee = useSelector(caculatorSelector)
-  console.log(fee);
   return (
     <View
       className="w-full bg-slate-100 flex items-center p-5 rounded-2xl mt-10 z-30"

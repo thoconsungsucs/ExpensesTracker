@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/components/Home/HomeScreen";
 import AddScreen from "./screens/components/Add/AddScreen";
+import DetailsScreen from "./screens/components/Details/DetailScreen"
 const Stack = createNativeStackNavigator();
 import store from "./screens/redux/store";
 import { Provider } from "react-redux";
@@ -42,7 +43,7 @@ export default function App() {
           />
           <Stack.Screen
             name="Details"
-            component={AddScreen}
+            component={DetailsScreen}
             options={{
               headerTitle: () => (
                 <Text className="text-2xl font-semibold pl-3">Chi tiết</Text>
