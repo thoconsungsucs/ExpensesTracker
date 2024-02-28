@@ -16,12 +16,20 @@ const AddButoon = () => {
         ? addItem(`PLUS_${curItem.category}`, {
             ...curItem,
             id: uuid.v4(),
-            date: new Date().toLocaleDateString(),
+            date: new Date().toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            }),
           })
         : addItem(`MINUS_${curItem.category}`, {
             ...curItem,
             id: uuid.v4(),
-            date: new Date().toLocaleDateString(),
+            date: new Date().toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            }),
           });
     dispatch(action);
   };

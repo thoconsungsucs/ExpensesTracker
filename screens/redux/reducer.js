@@ -21,77 +21,98 @@ const initState = {
       date: "",
     },
   },
-  list: {
+  data: {
     expensesList: [
       {
-        category: "shopping",
-        date: "28/2/2024",
-        description: "",
-        fee: "",
-        id: "882b8e00-81f1-4ff7-b729-a5ac2872bb54",
+        date: "28/02/2024",
+        list: [
+          {
+            category: "shopping",
+            date: "28/02/2024",
+            description: "Quần áo",
+            fee: "11",
+            id: "882b8e00-81f1-4ff7-b729-a5ac2872bb54",
+          },
+          {
+            category: "fixed",
+            date: "28/02/2024",
+            description: "Mạng",
+            fee: "33",
+            id: "56879fc8-d8cf-4851-bac3-536812403829",
+          },
+        ],
       },
       {
-        category: "fixed",
-        date: "28/2/2024",
-        description: "",
-        fee: "33",
-        id: "56879fc8-d8cf-4851-bac3-536812403829",
+        date: "29/02/2024",
+        list: [
+          {
+            category: "travel",
+            date: "29/02/2024",
+            description: "Xe bus",
+            fee: "333",
+            id: "ca662f13-5174-439d-9da6-b4433b39e1fb",
+          },
+          {
+            category: "fixed",
+            date: "29/02/2024",
+            description: "Bảo hiểm",
+            fee: "333",
+            id: "24f6e824-a0c7-4bc3-be82-5b2748f305c9",
+          },
+        ],
+      },
+
+      {
+        date: "03/02/2024",
+        list: [
+          {
+            category: "food",
+            date: "03/02/2024",
+            description: "Bánh mì",
+            fee: "333",
+            id: "5d93e9e5-1a66-488d-b28b-bbf489e84f82",
+          },
+          {
+            category: "shopping",
+            date: "03/02/2024",
+            description: "Quần",
+            fee: "10",
+            id: "882b8e00-81f1-4ff7-b729-a5ac2872bb54",
+          },
+          {
+            category: "fixed",
+            date: "03/02/2024",
+            description: "Tiền học",
+            fee: "33",
+            id: "56879fc8-d8cf-4851-bac3-536812403829",
+          },
+        ],
       },
       {
-        category: "travel",
-        date: "29/2/2024",
-        description: "",
-        fee: "333",
-        id: "ca662f13-5174-439d-9da6-b4433b39e1fb",
-      },
-      {
-        category: "fixed",
-        date: "29/2/2024",
-        description: "",
-        fee: "333",
-        id: "24f6e824-a0c7-4bc3-be82-5b2748f305c9",
-      },
-      {
-        category: "food",
-        date: "30/3/2024",
-        description: "",
-        fee: "333",
-        id: "5d93e9e5-1a66-488d-b28b-bbf489e84f82",
-      },
-      {
-        category: "shopping",
-        date: "30/3/2024",
-        description: "",
-        fee: "",
-        id: "882b8e00-81f1-4ff7-b729-a5ac2872bb54",
-      },
-      {
-        category: "fixed",
-        date: "30/3/2024",
-        description: "",
-        fee: "33",
-        id: "56879fc8-d8cf-4851-bac3-536812403829",
-      },
-      {
-        category: "travel",
-        date: "1/3/2024",
-        description: "",
-        fee: "333",
-        id: "ca662f13-5174-439d-9da6-b4433b39e1fb",
-      },
-      {
-        category: "fixed",
-        date: "3/3/2024",
-        description: "",
-        fee: "333",
-        id: "24f6e824-a0c7-4bc3-be82-5b2748f305c9",
-      },
-      {
-        category: "food",
-        date: "4/3/2024",
-        description: "",
-        fee: "333",
-        id: "5d93e9e5-1a66-488d-b28b-bbf489e84f82",
+        date: "04/02/2024",
+        list: [
+          {
+            category: "travel",
+            date: "04/02/2024",
+            description: "Bee",
+            fee: "333",
+            id: "ca662f13-5174-439d-9da6-b4433b39e1fb",
+          },
+          {
+            category: "fixed",
+            date: "04/02/2024",
+            description: "",
+            fee: "333",
+            id: "24f6e824-a0c7-4bc3-be82-5b2748f305c9",
+          },
+          {
+            category: "food",
+            date: "04/02/2024",
+            description: "",
+            fee: "333",
+            id: "5d93e9e5-1a66-488d-b28b-bbf489e84f82",
+          },
+        ],
       },
     ],
     monthList: [],
@@ -139,7 +160,17 @@ const rootReducer = (state = initState, action) => {
           description: action.payload,
         },
       };
-    case `ADD_ITEM_MINUS_${action.type.split("_")[3]}`:
+    case `ADD_ITEM_MINUS_${action.type.split("_")[3]}`: {
+      const updateList = state.data.expensesList.map((item) =>
+        item.date === action.payload.date
+          ? { ...item, list: [action.payload, ...item.list] }
+          : item
+      );
+      const updateMonthList = state.data.monthList.includes(
+        action.payload.date.substring(3)
+      )
+        ? state.data.monthList
+        : [action.payload.date.substring(3), ...state.data.monthList];
       return {
         ...state,
         money: {
@@ -155,10 +186,11 @@ const rootReducer = (state = initState, action) => {
             date: action.payload.date,
           },
         },
-        list: {
-          ...state.list,
-          expensesList: [...state.list.expensesList, action.payload],
-          saving: state.list.saving - action.payload.fee,
+        data: {
+          ...state.data,
+          expensesList: updateList,
+          saving: state.data.saving - action.payload.fee,
+          monthList: updateMonthList,
         },
         curItem: {
           id: "",
@@ -167,7 +199,13 @@ const rootReducer = (state = initState, action) => {
           description: "",
         },
       };
+    }
     case `ADD_ITEM_PLUS_${action.type.split("_")[3]}`:
+      const updateList = state.data.expensesList.map((item) =>
+        item.date === action.payload.date
+          ? { ...item, list: [action.payload, ...item.list] }
+          : item
+      );
       return {
         ...state,
         money: {
@@ -183,9 +221,10 @@ const rootReducer = (state = initState, action) => {
           },
         },
         list: {
-          ...state.list,
-          expensesList: [...state.list.expensesList, action.payload],
-          saving: state.list.saving - action.payload.fee,
+          ...state.data,
+          expensesList: updateList,
+          saving: state.data.saving - action.payload.fee,
+          monthList: updateMonthList,
         },
         curItem: {
           id: "",

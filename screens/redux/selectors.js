@@ -10,4 +10,4 @@ export const statusSelector = (state) => state.status;
 
 export const moneySelector = (state) => state.money;
 
-export const listSelector = (state) => state.list
+export const dataSelector = (state) => state.data;
