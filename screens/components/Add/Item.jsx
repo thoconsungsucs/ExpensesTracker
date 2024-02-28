@@ -8,7 +8,8 @@ const Item = ({type, lastItem, fee, date }) => {
       style={{ elevation: 1 }}
     >
       <View className="p-2 mr-3">
-        <AntDesign name="shoppingcart" size={44} color="#F193C1" />
+        {/* #F193C1 */}
+        <AntDesign name="shoppingcart" size={44} color="black" /> 
       </View>
 
       <View className="flex space-y-1 py-3 flex-1">
@@ -18,7 +19,9 @@ const Item = ({type, lastItem, fee, date }) => {
 
       <View className="flex space-y-1 py-3 items-end">
         <Text className="text-red-500">-${fee || 0}</Text>
-        <Text className="font-extralight">{date ? date.substring(0,4) : ""}</Text>
+        <Text className="font-extralight">
+          {date ? date.substring(0, 4) : ""}
+        </Text>
       </View>
     </View>
   );
