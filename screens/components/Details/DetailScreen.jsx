@@ -12,7 +12,6 @@ const DetailScreen = () => {
     label: month,
     value: month,
   }));
-  console.log(data.monthList);
   const [items, setItems] = useState(months);
 
   // const groupTransactionsByDate = (list) => {
@@ -73,7 +72,8 @@ const DetailScreen = () => {
                 type={item.category}
                 lastItem={item.description}
                 fee={item.fee}
-                date={item.date}
+                hour={item.hour}
+                id={item.id}
               ></Item>
             ))}
           </View>

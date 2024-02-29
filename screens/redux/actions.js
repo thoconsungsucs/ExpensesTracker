@@ -11,3 +11,10 @@ export const addItem = (type,value) => {
     payload: value,
   };
 };
+
+export const deleteItem = (value) => {
+  return {
+    type: "DELETE_ITEM",
+    payload: value
+  }
+}

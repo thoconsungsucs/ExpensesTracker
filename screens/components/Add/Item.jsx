@@ -1,11 +1,19 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Vibration } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-const Item = ({type, lastItem, fee, date }) => {
+import { useDispatch } from "react-redux";
+import { deleteItem } from "../../redux/actions";
+const Item = ({ type, lastItem, fee, hour, id }) => {
+  const dispatch = useDispatch();
+  const handleDeleted = () => {
+    Vibration.vibrate();
+    dispatch(deleteItem(id));
+  };
   return (
-    <View
+    <TouchableOpacity
       className="flex-row bg-[#F8F7FC] p-2 rounded-2xl mb-3 items-center"
       style={{ elevation: 1 }}
+      onLongPress={handleDeleted}
     >
       <View className="p-2 mr-3">
         {/* #F193C1 */}
@@ -24,11 +32,9 @@ const Item = ({type, lastItem, fee, date }) => {
           <Text className="text-red-500">-${fee || 0}</Text>
         )}
 
-        <Text className="font-extralight">
-          {date ? date.substring(0, 5) : ""}
-        </Text>
+        <Text className="font-extralight">{hour}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

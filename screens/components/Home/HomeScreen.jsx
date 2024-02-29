@@ -5,10 +5,30 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Item from "../Add/Item";
 import { useSelector } from "react-redux";
-import { moneySelector, statusSelector } from "../../redux/selectors";
+import { moneySelector, expensesListSeclector } from "../../redux/selectors";
 
 const Home = ({ navigation }) => {
-  const status = useSelector(statusSelector);
+  const expensesList = useSelector(expensesListSeclector);
+
+  const getStatus = (expensesList) => {
+    const status = {};
+    expensesList.forEach((month) => {
+      month.list.forEach((transaction) => {
+        const { category } = transaction;
+
+        // Chỉ quan tâm đến danh mục "shopping", "food", và "travel"
+        if (["shopping", "food", "travel"].includes(category)) {
+          if (!(category in status)) {
+            status[category] = transaction;
+          }
+        }
+      });
+    })
+    return status;
+  };
+
+  const status = getStatus(expensesList);
+
   const shopping = status.shopping;
   const food = status.food;
   const travel = status.travel;
@@ -69,21 +89,21 @@ const Home = ({ navigation }) => {
       <View className="w-5/6 mx-auto mt-4">
         <Item
           type={"Mua sắm"}
-          lastItem={shopping.lastItem}
-          fee={shopping.fee}
-          date={shopping.date}
+          lastItem={shopping?.description }
+          fee={shopping?.fee}
+          hour={shopping?.hour}
         />
         <Item
           type={"Ăn uống"}
-          lastItem={food.lastItem}
-          fee={food.fee}
-          date={food.date}
+          lastItem={food?.description }
+          fee={food?.fee}
+          hour={food?.hour}
         />
         <Item
           type={"Đi lại"}
-          lastItem={travel.lastItem}
-          fee={travel.fee}
-          date={travel.date}
+          lastItem={travel?.description}
+          fee={travel?.fee}
+          hour={travel?.hour}
         />
       </View>
 

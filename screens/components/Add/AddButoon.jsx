@@ -9,28 +9,30 @@ import uuid from "react-native-uuid";
 const AddButoon = () => {
   const curItem = useSelector(curItemSelector);
   const dispatch = useDispatch();
+
+  const getCurrentHourAndMinutes = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0"); // Đảm bảo giờ có 2 chữ số
+    const minutes = now.getMinutes().toString().padStart(2, "0"); // Đảm bảo phút có 2 chữ số
+    return `${hours}:${minutes}`;
+  };
+
+  const currentHourAndMinutes = getCurrentHourAndMinutes();
+  const newItem = {
+    ...curItem,
+    id: uuid.v4(),
+    date: new Date().toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }),
+    hour: getCurrentHourAndMinutes(),
+  };
   const handleAdd = () => {
-    console.log(curItem);
     const action =
       curItem.category === "income"
-        ? addItem(`PLUS_${curItem.category}`, {
-            ...curItem,
-            id: uuid.v4(),
-            date: new Date().toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            }),
-          })
-        : addItem(`MINUS_${curItem.category}`, {
-            ...curItem,
-            id: uuid.v4(),
-            date: new Date().toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            }),
-          });
+        ? addItem(`PLUS_${curItem.category}`, newItem)
+        : addItem(`MINUS_${curItem.category}`, newItem);
     dispatch(action);
   };
   return (
