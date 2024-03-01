@@ -6,19 +6,31 @@ const initState = {
 
 const moneyReducer = (state = initState, action) => {
   switch (action.type) {
-    case `ADD_ITEM_MINUS_${action.type.split("_")[3]}`:
-      return {
-        ...state,
-        balance: state.balance - parseFloat(action.payload.fee),
-        expenses: state.expenses + parseFloat(action.payload.fee),
-      };
+    case `ADD_ITEM_${action.type.split("_")[2]}`:
+      return action.payload.category === "income"
+        ? {
+            ...state,
+            income: state.income + parseFloat(action.payload.fee),
+            balance: state.balance + parseFloat(action.payload.fee),
+          }
+        : {
+            ...state,
+            balance: state.balance - parseFloat(action.payload.fee),
+            expenses: state.expenses + parseFloat(action.payload.fee),
+          };
 
-    case `ADD_ITEM_PLUS_${action.type.split("_")[3]}`:
-      return {
-        ...state,
-        income: state.income + parseFloat(action.payload.fee),
-      };
-      
+    case "DELETE_ITEM":
+      return action.payload.category === "income"
+        ? {
+            ...state,
+            income: state.income - parseFloat(action.payload.fee),
+            balance: state.balance - parseFloat(action.payload.fee),
+          }
+        : {
+            ...state,
+            balance: state.balance + parseFloat(action.payload.fee),
+            expenses: state.expenses - parseFloat(action.payload.fee),
+          };
     default:
       return state;
   }

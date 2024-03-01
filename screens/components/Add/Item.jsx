@@ -3,11 +3,14 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { deleteItem } from "../../redux/actions";
-const Item = ({ type, lastItem, fee, hour, id }) => {
+const Item = ({ category, lastItem, fee, hour, id, icon, date, name }) => {
+  const Icon = (icon) => {
+    return icon;
+  };
   const dispatch = useDispatch();
   const handleDeleted = () => {
     Vibration.vibrate();
-    dispatch(deleteItem(id));
+    dispatch(deleteItem({ id, category, fee, date }));
   };
   return (
     <TouchableOpacity
@@ -15,18 +18,18 @@ const Item = ({ type, lastItem, fee, hour, id }) => {
       style={{ elevation: 1 }}
       onLongPress={handleDeleted}
     >
-      <View className="p-2 mr-3">
+      <View className="p-1 mr-2">
         {/* #F193C1 */}
-        <AntDesign name="shoppingcart" size={44} color="black" />
+        {icon && icon()}
       </View>
 
       <View className="flex space-y-1 py-3 flex-1">
-        <Text className="font-semibold">{type}</Text>
+        <Text className="font-semibold">{name}</Text>
         <Text>Gần nhất: {lastItem || "..."}</Text>
       </View>
 
-      <View className="flex space-y-1 py-3 items-end">
-        {type === "Lương" ? (
+      <View className="flex space-y-1 py-3 px-1 items-end">
+        {name === "Lương" ? (
           <Text className="text-green-500">+${fee || 0}</Text>
         ) : (
           <Text className="text-red-500">-${fee || 0}</Text>

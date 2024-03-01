@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
           }
         }
       });
-    })
+    });
     return status;
   };
 
@@ -33,6 +33,7 @@ const Home = ({ navigation }) => {
   const food = status.food;
   const travel = status.travel;
   const money = useSelector(moneySelector);
+
   return (
     <View className=" bg-white h-full pt-6">
       {/* Balance */}
@@ -88,22 +89,34 @@ const Home = ({ navigation }) => {
       {/* CurList */}
       <View className="w-5/6 mx-auto mt-4">
         <Item
-          type={"Mua sắm"}
-          lastItem={shopping?.description }
+          category={"Mua sắm"}
+          lastItem={shopping?.description}
           fee={shopping?.fee}
           hour={shopping?.hour}
+          icon={() => <AntDesign name="shoppingcart" size={44} color="black" />}
         />
+
         <Item
-          type={"Ăn uống"}
-          lastItem={food?.description }
+          category={"Ăn uống"}
+          lastItem={food?.description}
           fee={food?.fee}
           hour={food?.hour}
+          icon={() => (
+            <MaterialCommunityIcons name="noodles" size={44} color="black" />
+          )}
         />
         <Item
-          type={"Đi lại"}
+          category={"Đi lại"}
           lastItem={travel?.description}
           fee={travel?.fee}
           hour={travel?.hour}
+          icon={() => (
+            <MaterialCommunityIcons
+              name="bus-articulated-front"
+              size={44}
+              color="black"
+            />
+          )}
         />
       </View>
 

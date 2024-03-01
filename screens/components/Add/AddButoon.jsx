@@ -26,13 +26,10 @@ const AddButoon = () => {
       month: "2-digit",
       year: "numeric",
     }),
-    hour: getCurrentHourAndMinutes(),
+    hour: currentHourAndMinutes,
   };
   const handleAdd = () => {
-    const action =
-      curItem.category === "income"
-        ? addItem(`PLUS_${curItem.category}`, newItem)
-        : addItem(`MINUS_${curItem.category}`, newItem);
+    const action = addItem(`${curItem.category}`, newItem);
     dispatch(action);
   };
   return (

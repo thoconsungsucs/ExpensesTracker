@@ -18,10 +18,10 @@ const initState = {
 
 const statusReducer = (state = initState, action) => {
   switch (action.type) {
-    case `ADD_ITEM_MINUS_${action.type.split("_")[3]}`: {
+    case `ADD_ITEM_${action.type.split("_")[2]}`: {
       return {
         ...state,
-        [action.type.split("_")[3]]: {
+        [action.type.split("_")[2]]: {
           lastItem: action.payload.description,
           fee: action.payload.fee,
           date: action.payload.date,
@@ -29,19 +29,10 @@ const statusReducer = (state = initState, action) => {
       };
     }
 
-    case `ADD_ITEM_PLUS_${action.type.split("_")[3]}`: {
-      return {
-        ...state,
-        [action.type.split("_")[3]]: {
-          lastItem: action.payload.description,
-          fee: action.payload.fee,
-          date: action.payload.date,
-        },
-      };
-    }
     default:
       return state;
   }
 };
+
 
 export default statusReducer;

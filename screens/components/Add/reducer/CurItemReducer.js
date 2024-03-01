@@ -20,20 +20,15 @@ const curItemReducer = (state = initState, action) => {
         ...state,
         description: action.payload,
       };
-    case `ADD_ITEM_MINUS_${action.type.split("_")[3]}`:
+    case `ADD_ITEM_${action.type.split("_")[2]}`:
       return {
         fee: "",
         category: "",
         description: "",
       };
-    case `ADD_ITEM_PLUS_${action.type.split("_")[3]}`:
-      return {
-        fee: "",
-        category: "",
-        description: "",
-      };
-      default:
-        return state;
+
+    default:
+      return state;
   }
 };
 
