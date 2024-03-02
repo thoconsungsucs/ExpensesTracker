@@ -10,6 +10,7 @@ const rootReducer = combineReducers({
   status: statusReducer,
   data : dataReducer,
   curItem: curItemReducer,
+  status: statusReducer,
 });
 
 export default rootReducer;

@@ -89,6 +89,7 @@ const Home = ({ navigation }) => {
       {/* CurList */}
       <View className="w-5/6 mx-auto mt-4">
         <Item
+        name={"Mua sắm"}
           category={"Mua sắm"}
           lastItem={shopping?.description}
           fee={shopping?.fee}
@@ -97,6 +98,7 @@ const Home = ({ navigation }) => {
         />
 
         <Item
+          name={"Ăn uống"}
           category={"Ăn uống"}
           lastItem={food?.description}
           fee={food?.fee}
@@ -106,6 +108,7 @@ const Home = ({ navigation }) => {
           )}
         />
         <Item
+          name={"Đi lại"}
           category={"Đi lại"}
           lastItem={travel?.description}
           fee={travel?.fee}

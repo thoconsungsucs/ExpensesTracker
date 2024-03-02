@@ -18,3 +18,10 @@ export const deleteItem = (value) => {
     payload: value
   }
 }
+
+export const filterItem = (value) => {
+  return {
+    type: "FILTER_ITEM",
+    payload: value,
+  };
+}

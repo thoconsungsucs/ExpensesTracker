@@ -1,9 +1,7 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Switch } from "react-native";
 import React, { useState } from "react";
 import Tag from "./Tag";
 import Caculator from "./Caculator";
-import { useDispatch } from "react-redux";
-import { caculatorChange } from "../../redux/actions";
 import Input from "./Input";
 import AddButoon from "./AddButoon";
 const AddScreen = () => {

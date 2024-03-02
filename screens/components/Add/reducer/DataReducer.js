@@ -1,5 +1,123 @@
 const initState = {
-  expensesList: [],
+  expensesList:[],
+  // expensesList: [
+  //   {
+  //     date: "02/03/2024",
+  //     list: [
+  //       {
+  //         id: 1,
+  //         category: "income",
+  //         fee: 2000,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "02/03/2024",
+  //       },
+  //       {
+  //         id: 2,
+  //         category: "shopping",
+  //         fee: 1000,
+  //         hour: "12:51",
+  //         description: "Fish",
+  //         date: "02/03/2024",
+  //       },
+  //       {
+  //         id: 3,
+  //         category: "food",
+  //         fee: 3000,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "02/03/2024",
+  //       },
+  //       {
+  //         id: 4,
+  //         category: "others",
+  //         fee: 1500,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "02/03/2024",
+  //       },
+  //     ],
+  //     sum: -1500,
+  //   },
+
+  //   {
+  //     date: "03/03/2024",
+  //     list: [
+  //       {
+  //         id: 5,
+  //         category: "income",
+  //         fee: 2000,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "03/03/2024",
+  //       },
+  //       {
+  //         id: 6,
+  //         category: "shopping",
+  //         fee: 1000,
+  //         hour: "12:51",
+  //         description: "Fish",
+  //         date: "02/03/2024",
+  //       },
+  //       {
+  //         id: 7,
+  //         category: "food",
+  //         fee: 3000,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "03/03/2024",
+  //       },
+  //       {
+  //         id: 8,
+  //         category: "others",
+  //         fee: 1500,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "03/03/2024",
+  //       },
+  //     ],
+  //     sum: -1500,
+  //   },
+
+  //   {
+  //     date: "04/03/2024",
+  //     list: [
+  //       {
+  //         id: 9,
+  //         category: "income",
+  //         fee: 2000,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "04/03/2024",
+  //       },
+  //       {
+  //         id: 10,
+  //         category: "shopping",
+  //         fee: 1000,
+  //         hour: "12:51",
+  //         description: "Fish",
+  //         date: "04/03/2024",
+  //       },
+  //       {
+  //         id: 11,
+  //         category: "food",
+  //         fee: 3000,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "04/03/2024",
+  //       },
+  //       {
+  //         id: 12,
+  //         category: "others",
+  //         fee: 1500,
+  //         hour: "12:50",
+  //         description: "Month 12",
+  //         date: "04/03/2024",
+  //       },
+  //     ],
+  //     sum: -1500,
+  //   },
+  // ],
   monthList: [],
   saving: 0,
 };
@@ -55,25 +173,12 @@ const dataReducer = (state = initState, action) => {
     }
 
     case "DELETE_ITEM": {
-      // const updateList = state.expensesList
-      //   .map((day) => {
-      //     const newList = day.list.filter(
-      //       (transaction) => transaction.id !== action.payload.id
-      //     );
-      //     return {
-      //       date: day.date,
-      //       list: newList,
-      //     };
-      //   })
-      //   .filter((day) => day.list.length > 0);
-
       const indexItemChanged = state.expensesList.findIndex(
         (day) => day.date === action.payload.date
       );
 
       let updateList = [...state.expensesList];
       const itemChanged = updateList[indexItemChanged];
-
       itemChanged.list = itemChanged.list.filter(
         (transaction) => transaction.id !== action.payload.id
       );
@@ -84,6 +189,7 @@ const dataReducer = (state = initState, action) => {
           : itemChanged.sum + parseFloat(action.payload.fee);
 
       updateList = updateList.filter((day) => day.list.length > 0);
+
 
       return action.payload.category === "income"
         ? {
