@@ -25,9 +25,9 @@ const Top = () => {
   const [isEnabled, setIsEnabled] = useState(status);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => {
-      dispatch(filterItem(!previousState));
       return !previousState;
     });
+    dispatch(filterItem(!status));
   };
 
   return (
