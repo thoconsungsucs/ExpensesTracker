@@ -4,13 +4,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/components/Home/HomeScreen";
 import AddScreen from "./screens/components/Add/AddScreen";
-import DetailsScreen from "./screens/components/Details/DetailScreen"
+import DetailsScreen from "./screens/components/Details/DetailScreen";
 const Stack = createNativeStackNavigator();
 import store from "./screens/redux/store";
+import { persistor } from "./screens/redux/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 export default function App() {
   return (
     <Provider store={store}>
+     <PersistGate loading={null} persistor={persistor}>
+
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -53,6 +57,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+     </PersistGate>
     </Provider>
   );
 }
