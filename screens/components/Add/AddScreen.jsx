@@ -1,22 +1,22 @@
-import { View, Switch } from "react-native";
-import React, { useState } from "react";
+import { View } from "react-native";
+import React from "react";
 import Tag from "./Tag";
-import Caculator from "./Caculator";
+import Calculator from "./Calculator";
 import Input from "./Input";
-import AddButoon from "./AddButoon";
+import AddButton from "./AddButton";
 const AddScreen = () => {
-  
   return (
-    <View className="px-10 bg-white h-full">
-      <Tag />
+    
+      <View className="px-10 bg-white h-full">
+        <Tag />
 
-      <Input/>
+        <Input />
 
-      <Caculator />
+        <Calculator />
 
-      <AddButoon/>
-      
-    </View>
+        <AddButton />
+      </View>
+    
   );
 };
 

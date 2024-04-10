@@ -4,30 +4,41 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useSelector, useDispatch } from "react-redux";
 import {
   monthListSelector,
-  savingSelector,
-  filterStatus,
+  filterStatusSelector,
+  curMonthSelector,
+  filterListSelector,
 } from "../../redux/selectors";
-import { filterItem } from "../../redux/actions";
+import { changeCurMonth, filterItem } from "../../redux/actions";
 const Top = () => {
   const dispatch = useDispatch();
-  const saving = useSelector(savingSelector);
-  
+  const list = useSelector(filterListSelector);
+  const saving = list.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.sum;
+  }, 0);
   const monthList = useSelector(monthListSelector);
   const [open, setOpen] = useState(false);
   const months = monthList.map((month) => ({
     label: month,
     value: month,
   }));
-  const value = monthList[0];
+
+  const curMonth = useSelector(curMonthSelector);
+
   const [items, setItems] = useState(months);
-  
-  const status = useSelector(filterStatus);
+
+  const status = useSelector(filterStatusSelector);
   const [isEnabled, setIsEnabled] = useState(status);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => {
       return !previousState;
     });
     dispatch(filterItem(!status));
+  };
+
+  const handleChangeMonth = (callback) => {
+    const month = callback();
+    console.log(month);
+    dispatch(changeCurMonth(month));
   };
 
   return (
@@ -47,12 +58,12 @@ const Top = () => {
       <View>
         <DropDownPicker
           containerStyle={{ width: 144 }}
-          placeholder="Loại"
+          placeholder="Category"
           open={open}
-          value={value}
+          value={curMonth}
           items={items}
           setOpen={setOpen}
-          setValue={() => {}}
+          setValue={handleChangeMonth}
           setItems={setItems}
         />
         <Switch

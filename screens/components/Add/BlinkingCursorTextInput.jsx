@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Animated, TextInput, View } from "react-native";
+import { Animated, View } from "react-native";
 
 const BlinkingCursorTextInput = () => {
   const [isCursorVisible, setCursorVisible] = useState(true);

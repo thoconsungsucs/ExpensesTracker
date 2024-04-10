@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { caculatorChange } from "../../redux/actions";
-import { caculatorSelector } from "../../redux/selectors";
-const Caculator = () => {
-  const caculator = [
+import { calculatorChange } from "../../redux/actions";
+import { calculatorSelector } from "../../redux/selectors";
+const calculator = () => {
+  const calculator = [
     "1",
     "2",
     "3",
@@ -20,23 +20,23 @@ const Caculator = () => {
   ];
 
   const dispatch = useDispatch();
-  const fee = useSelector(caculatorSelector);
+  const fee = useSelector(calculatorSelector);
   const handleChange = (value) => {
     switch (value) {
       case "x":
-        dispatch(caculatorChange("FEE", ""));
+        dispatch(calculatorChange("FEE", ""));
         return "";
       case ".":
         if (fee === 0 || fee.includes("."))
           return fee;
       default:
-        dispatch(caculatorChange("FEE", fee + value));
+        dispatch(calculatorChange("FEE", fee + value));
     }
   };
 
   return (
     <View className="mt-10 flex flex-wrap flex-row justify-between ">
-      {caculator.map((value) => (
+      {calculator.map((value) => (
         <TouchableOpacity
           className="w-[60px] h-[60px] bg-slate-100 flex items-center justify-center rounded-full mb-5"
           key={value}
@@ -49,4 +49,4 @@ const Caculator = () => {
   );
 };
 
-export default Caculator;
+export default calculator;

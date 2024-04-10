@@ -1,26 +1,25 @@
-import { View, Text } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { caculatorChange } from "../../redux/actions";
+import { calculatorChange } from "../../redux/actions";
 import { categorySelector } from "../../redux/selectors";
 
 export const Dropdown = () => {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: "Mua sắm", value: "shopping" },
-    { label: "Ăn uống", value: "food" },
-    { label: "Đi lại", value: "travel" },
-    { label: "Cố định", value: "fixed" },
-    { label: "Lương", value: "income" },
-    { label: "Chi phí phát sinh", value: "others" },
+    { label: "Shopping", value: "shopping" },
+    { label: "Food", value: "food" },
+    { label: "Travel", value: "travel" },
+    { label: "Fixed", value: "fixed" },
+    { label: "Salary", value: "income" },
+    { label: "Others", value: "others" },
   ]);
   const dispatch = useDispatch();
   const value = useSelector(categorySelector)
   const handleChange = (callback) => {
     const category = callback();
-    dispatch(caculatorChange("CATEGORY", category));
+    dispatch(calculatorChange("CATEGORY", category));
   };
  
   return (

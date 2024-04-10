@@ -4,11 +4,30 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Item from "../Add/Item";
-import { useSelector } from "react-redux";
-import { moneySelector, expensesListSeclector } from "../../redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  moneySelector,
+  expensesListSelector,
+  monthListSelector,
+} from "../../redux/selectors";
+import { changeCurMonth } from "../../redux/actions";
 
 const Home = ({ navigation }) => {
-  const expensesList = useSelector(expensesListSeclector);
+  const dispatch = useDispatch();
+  const monthList = useSelector(monthListSelector);
+  const curMonth = new Date()
+    .toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
+    .substring(3);
+
+  if (!monthList.includes(curMonth)) {
+    dispatch(changeCurMonth(curMonth));
+  }
+
+  const expensesList = useSelector(expensesListSelector);
 
   const getStatus = (expensesList) => {
     const status = {};
@@ -41,11 +60,11 @@ const Home = ({ navigation }) => {
         className="w-5/6  mx-auto h-1/5 flex items-center justify-center bg-red-400 rounded-3xl"
         style={{ elevation: 5 }}
       >
-        <Text className="text-2xl font-light mb-1">Số dư</Text>
+        <Text className="text-2xl font-light mb-1">Balance</Text>
         <Text className="text-3xl font-semibold">${money.balance}</Text>
       </View>
 
-      {/* Income and expesnse */}
+      {/* Income and expense */}
       <View className="w-5/6 mx-auto flex rounded-3xl mt-5 flex-row space-x-3 ">
         <View
           className="bg-green-200 flex-1 p-3 flex-row items-center rounded-2xl"
@@ -53,7 +72,7 @@ const Home = ({ navigation }) => {
         >
           <MaterialIcons name="money" size={48} color="black" />
           <View className="pl-3">
-            <Text>Thu nhập</Text>
+            <Text>Income</Text>
             <Text className="font-semibold text-xl">${money.income}</Text>
           </View>
         </View>
@@ -68,7 +87,7 @@ const Home = ({ navigation }) => {
             color="black"
           />
           <View className="pl-3">
-            <Text>Chi tiêu</Text>
+            <Text>Expenses</Text>
             <Text className="font-semibold text-xl">${money.expenses}</Text>
           </View>
         </View>
@@ -77,11 +96,11 @@ const Home = ({ navigation }) => {
       {/* Navigation to Details */}
       <View className="w-5/6 mx-auto pt-6 flex-row">
         <Text className="flex-1 font-semibold text-lg">
-          Chi tiêu trong tháng
+          Current Month Expenses
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Details")}>
           <Text className="text-base text-pink-500 mt-auto rounded-xl border py-1 px-2">
-            Tất cả
+            All
           </Text>
         </TouchableOpacity>
       </View>
@@ -89,30 +108,30 @@ const Home = ({ navigation }) => {
       {/* CurList */}
       <View className="w-5/6 mx-auto mt-4">
         <Item
-        name={"Mua sắm"}
-          category={"Mua sắm"}
+          name={"Shopping"}
+          category={"Shopping"}
           lastItem={shopping?.description}
           fee={shopping?.fee}
-          hour={shopping?.hour}
+          hour={shopping?.date.substring(0,5)}
           icon={() => <AntDesign name="shoppingcart" size={44} color="black" />}
         />
 
         <Item
-          name={"Ăn uống"}
-          category={"Ăn uống"}
+          name={"Food"}
+          category={"Food"}
           lastItem={food?.description}
           fee={food?.fee}
-          hour={food?.hour}
+          hour={food?.date.substring(0,5)}
           icon={() => (
             <MaterialCommunityIcons name="noodles" size={44} color="black" />
           )}
         />
         <Item
-          name={"Đi lại"}
-          category={"Đi lại"}
+          name={"Travel"}
+          category={"Travel"}
           lastItem={travel?.description}
           fee={travel?.fee}
-          hour={travel?.hour}
+          hour={travel?.date.substring(0,5)}
           icon={() => (
             <MaterialCommunityIcons
               name="bus-articulated-front"

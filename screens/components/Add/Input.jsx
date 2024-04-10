@@ -1,17 +1,17 @@
-import { View, Text, TextInput } from "react-native";
-import React, { useState } from "react";
+import { TextInput } from "react-native";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { caculatorChange } from "../../redux/actions";
+import { calculatorChange } from "../../redux/actions";
 import { inputSelector } from "../../redux/selectors";
 const Input = () => {
   const text = useSelector(inputSelector)
   const dispatch = useDispatch();
   const handleChange = (value) => {
-    dispatch(caculatorChange("DESCRIPTION", value));
+    dispatch(calculatorChange("DESCRIPTION", value));
   };
   return (
     <TextInput
-      placeholder="Chi tiết"
+      placeholder="Description"
       className="mt-10 text-xl border-b-[1px]"
       value={text}
       onChangeText={handleChange}

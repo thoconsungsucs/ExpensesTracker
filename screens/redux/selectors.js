@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-export const caculatorSelector = (state) => state.curItem.fee;
+export const calculatorSelector = (state) => state.curItem.fee;
 
 export const inputSelector = (state) => state.curItem.description;
 
@@ -8,17 +8,26 @@ export const categorySelector = (state) => state.curItem.category;
 
 export const curItemSelector = (state) => state.curItem;
 
-export const filterStatus = (state) => state.status;
+export const filterStatusSelector = (state) => state.status.isFiltered;
+
+export const curMonthSelector = (state) => state.status.curMonth;
 
 export const moneySelector = (state) => state.money;
 
 export const dataSelector = (state) => state.data;
 
-export const expensesListSeclector = (state) => state.data.expensesList;
+export const expensesListSelector = (state) => state.data.expensesList;
 
-export const filterListSeclector = createSelector(
-  filterStatus,
-  expensesListSeclector,
+export const expensesListInMonthSelector = createSelector(
+  expensesListSelector,
+  curMonthSelector,
+  (list, month) => {
+    return list.filter((day) => day.date.substring(3) == month);
+  }
+);
+export const filterListSelector = createSelector(
+  filterStatusSelector,
+  expensesListInMonthSelector,
   (bool, list) => {
     const categoryOrder = [
       "shopping",
@@ -39,15 +48,16 @@ export const filterListSeclector = createSelector(
           }
 
           result[category].list.push(item);
-          result[category].sum += parseFloat(item.fee);
+          console.log(item.fee);
+          if (category == "income") {
+            result[category].sum += parseFloat(item.fee);
+          } else result[category].sum -= parseFloat(item.fee);
         });
       });
-      console.log(result);
       const sortedResult = categoryOrder
         .map((category) => result[category])
         .filter(Boolean);
 
-      console.log(sortedResult);
       return sortedResult;
     }
 

@@ -1,36 +1,23 @@
-const initState =
-  // shopping: {
-  //   lastItem: "",
-  //   fee: 0,
-  //   date: "",
-  // },
-  // food: {
-  //   lastItem: "",
-  //   fee: 0,
-  //   date: "",
-  // },
-  // travel: {
-  //   lastItem: "",
-  //   fee: 0,
-  //   date: "",
-  // },
-   false 
+const initState = {
+  isFiltered: false,
+  curMonth: new Date()
+    .toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
+    .substring(3),
+  saving: 0,
+};
 
 const statusReducer = (state = initState, action) => {
   switch (action.type) {
-    // case `ADD_ITEM_${action.type.split("_")[2]}`: {
-    //   return {
-    //     ...state,
-    //     [action.type.split("_")[2]]: {
-    //       lastItem: action.payload.description,
-    //       fee: action.payload.fee,
-    //       date: action.payload.date,
-    //     },
-    //   };
-    // }
-
     case "FILTER_ITEM":
-      return action.payload;
+      return { ...state, isFiltered: action.payload };
+    case "CHANGE_CUR_MONTH":
+      return { ...state, curMonth: action.payload };
+    case "CHANGE_SAVING_MONTH":
+      return { ...state, saving: action.payload };
     default:
       return state;
   }
